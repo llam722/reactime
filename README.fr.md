@@ -18,10 +18,10 @@
   </a>
   <a href="https://travis-ci.com/oslabs-beta/reactime">
     <img src="https://travis-ci.com/oslabs-beta/reactime.svg?branch=master" alt="Build Status">
-  </a>  
+  </a>
   <a href="http://badge.fury.io/js/reactime">
     <img src="https://badge.fury.io/js/reactime.svg" alt="npm version">
-  </a>  
+  </a>
     <img src="https://img.shields.io/badge/babel%20preset-airbnb-ff69b4" alt="BabelPresetPrefs">
     <img src="https://img.shields.io/badge/linted%20with-eslint-blueviolet" alt="LintPrefs">
 </p>
@@ -40,10 +40,12 @@
 </p>
 
 <p align="center">
-  <a href="#how-to-use">Manuel</a> • <a href="#features">Caractéristiques</a> • <a href="https://reactime.io">Website</a> • <a href="#readmore">En savoir plus</a>
+  <a href="#how-to-use">Manuel</a> • <a href="#features">Caractéristiques</a> • <a href="https://reactime.dev">Website</a> • <a href="#readmore">En savoir plus</a>
 </p>
 
 Actuellement, Reactime est compatible avec les applications React qui utilisent des composants à état (stateful) et Hooks, avec un support en version bêta de Recoil et de pour le Context API.
+
+<b>Reactime 18.0</b> introduit une gamme de fonctionnalités nouvelles et améliorées visant à optimiser les performances et à améliorer la compatibilité. Avec le support de Next.js et de Remix, une couverture de test accrue (93% backend, le frontend a encore besoin de plus de tests), ainsi que des améliorations structurelles de la base de code. De plus, nous sommes fiers d'annoncer le lancement de notre site web récemment redessiné, qui sert de centre pour les dernières mises à jour et informations sur Reactime. Pour aider à la débogage, nous avons inclus des applications de démonstration pour Next.js et Remix, permettant aux futurs itérateurs de tester et dépanner avec plus de facilité et d'efficacité.
 
 <b>Reactime version 7.0</b> beta peut vous aider à éviter les ré-rendus inutiles. Identifier les rendus inutiles dans vos applications React est le point de départ idéal pour identifier la plupart des problèmes de performances.
 La version beta 7.0 de Reactime corrige les bugs des anciennes versions et intègre des visualisations améliorées pour les relations entre les composants.
@@ -131,6 +133,10 @@ Après avoir cloné ce référentiel, les développeurs peuvent simplement exéc
 
 ## <b>Auteurs</b>
 
+- **Ben Margolius** - [@benmarg](https://github.com/benmarg)
+- **Eric Yun** - [@ericsngyun](https://github.com/ericsngyun)
+- **James Nghiem** - [@jemzir](https://github.com/jemzir)
+- **Wilton Lee** - [@wiltonlee948](https://github.com/wiltonlee948)
 - **David Kim** - [@codejunkie7](https://github.com/codejunkie7)
 - **Robby Tipton** - [@RobbyTipton](https://github.com/RobbyTipton)
 - **Kevin HoEun Lee** - [@khobread](https://github.com/khobread)
@@ -192,6 +198,10 @@ Après avoir cloné ce référentiel, les développeurs peuvent simplement exéc
 - **Kristina Wallen** - [@kristinawallen](https://github.com/kristinawallen)
 - **Quan Le** - [@blachfog](https://github.com/Blachfog)
 - **Robert Maeda** - [@robmaeda](https://github.com/robmaeda)
+- **Lance Ziegler** - [@lanceziegler](https://github.com/lanceziegler)
+- **Ngoc Zwolinski** - [@ngoczwolinski](https://github.com/ngoczwolinski)
+- **Peter Lam** - [@dev-plam](https://github.com/dev-plam)
+- **Zachary Freeman** - [@zacharydfreeman](https://github.com/zacharydfreeman/)
 
 ## <b>License </b>
 

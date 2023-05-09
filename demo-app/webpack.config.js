@@ -25,11 +25,11 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
-      }
+      },
     ],
   },
   resolve: {
-    extensions: ['.jsx', '.js','.ts','.tsx'],
+    extensions: ['.jsx', '.js', '.ts', '.tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -41,13 +41,13 @@ module.exports = {
     }),
   ],
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, './dist'),
     },
     proxy: {
       '/api': 'http://localhost:3000',
-      secure: false
-    }
+      secure: false,
+    },
   },
-
-}
+};

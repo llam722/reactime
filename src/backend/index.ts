@@ -1,51 +1,61 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable consistent-return */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/order */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 'reactime' module has a single export
  * @function linkFiber
-*/
+ */
+// --------------------------START OF IMPORT------------------------------------
 // regenerator runtime supports async functionality
 import 'regenerator-runtime/runtime';
-import linkFiberStart from './linkFiber';
-import timeJumpStart from './timeJump';
-import {
-  Snapshot, Mode, MsgData,
-} from './types/backendTypes';
+import linkFiberInitialization from './routers/linkFiber';
+import timeJumpInitialization from './controllers/timeJump';
+import { Snapshot, Status, MsgData } from './types/backendTypes';
+import routes from './models/routes';
 
-// * State snapshot object initialized here
-const snapShot: Snapshot = {
-  tree: null,
-  unfilteredTree: null,
-};
-
-const mode: Mode = {
+// -------------------------INITIALIZE MODE--------------------------
+/** Indicate if mode is jumping/not jumping or navigating during jumping */
+const mode: Status = {
   jumping: false,
-  paused: false,
 };
 
-// linkFiber is now assigned the default function exported from the file linkFiber.ts
-const linkFiber = linkFiberStart(snapShot, mode);
-// timeJump is now assigned the default function exported from the file timeJump.ts
-const timeJump = timeJumpStart(mode);
+// ---------------------INITIALIZE LINKFIBER & TIMEJUMP-------------------------
+// linkFiber is now assigned the default ASYNC function exported from the file linkFiber.ts
+const linkFiber = linkFiberInitialization(mode);
+// timeJump is now assigned the default ASYNC function exported from the file timeJump.ts
+const timeJump = timeJumpInitialization(mode);
 
-// * Event listener for time-travel actions
-window.addEventListener('message', ({ data: { action, payload } }: MsgData) => {
+/**
+ * Invoke linkFiber to perform the following:
+ * 1. Check for ReactDev installation, valid target React App
+ * 2. Obtain the initial ReactFiber Tree from target React App
+ * 3. Send a snapshot of ReactFiber Tree to frontend/Chrome Extension
+ */
+linkFiber();
+
+// --------------INITIALIZE EVENT LISTENER FOR TIME TRAVEL----------------------
+/**
+ * On the chrome extension, if user click left/right arrow or the play button (a.k.a time travel functionality), frontend will send a message `jumpToSnap` with payload of the cached snapShot tree at the current step
+ * 1. Set jumping mode to true => dictate we are jumping => no new snapshot will be sent to frontend
+ * 2. If navigate to a new route during jumping => cache timeJump in navigate.
+ * 3. If not navigate during jumping =>  invoke timeJump to update ReactFiber tree with cached data from the snapshot payload
+ */
+window.addEventListener('message', async ({ data: { action, payload } }: MsgData) => {
   switch (action) {
     case 'jumpToSnap':
-      timeJump(payload, true); // * This sets state with given payload
+      // Set mode to jumping to prevent snapShot being sent to frontEnd
+      // NOTE: mode.jumping is set to false inside the timeJump.ts
+      mode.jumping = true;
+      // Check if we are navigating to another route
+      const navigating: boolean = routes.navigate(payload.route);
+      // If need to navigate
+      if (navigating) {
+        // Cache timeJump function in mode.navigating => which will be invoked during onCommitFiberRoot:
+        mode.navigating = () => timeJump(payload);
+      }
+      // If not navitating, invoke timeJump immediately to update React Application FiberTree based on the snapshotTree payload
+      else {
+        await timeJump(payload); // * This sets state with given payload
+      }
       break;
-
-    case 'setPause':
-      mode.paused = payload;
-      break;
-
     default:
       break;
   }
 });
-// connect to dev tools and new fiber,
-// invokes anonymous function from linkFiber.ts set to linkFiber on line 30
-linkFiber();
